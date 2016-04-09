@@ -22,10 +22,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
@@ -87,27 +84,15 @@ public class FileChooserExampleActivity extends Activity {
                             path = FileUtils.getPath(this, uri);
                             Toast.makeText(FileChooserExampleActivity.this,
                                     "File Selected!: " + path, Toast.LENGTH_LONG).show();
-
-                            new Thread(){
-                                public void run()
-                                {
-                                    try{
-
-                                        res = test.HttpClientPost(path);
-                                    } catch (Exception e)
-                                    {
-                                        e.printStackTrace();
-                                    }
-                                    Log.i("tag",res);
-                                }
-
-                            }.start();
-
-
-
+                            res = test.HttpClientPost(path);
+                            Log.i("tag", res);
                         } catch (Exception e) {
                             Log.e("FileSelectorActivity", "File select error", e);
                         }
+                        Intent intent = new Intent(this, show_pic.class);
+                        intent.putExtra("path", path);
+                        intent.putExtra("yanzhi", res);
+                        startActivity(intent);
                     }
                 }
                 break;
