@@ -19,12 +19,5 @@
         android:layout_below="@+id/imageView"
         android:layout_alignParentLeft="true" />
 
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView"
-        android:layout_above="@+id/t123"
-        android:layout_alignParentLeft="true" />
-
 
 </RelativeLayout>
