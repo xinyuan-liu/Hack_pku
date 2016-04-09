@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <LinearLayout
-        android:orientation="horizontal"
+    <SurfaceView android:id="@+id/camera"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="130px"
-        android:paddingRight="200px"
-        >
-        <SurfaceView
-            android:id="@+id/mSurfaceView1"
-            android:visibility="visible"
-            android:layout_width="320px"
-            android:layout_height="240px">
-        </SurfaceView>
-    </LinearLayout>
-</LinearLayout>
+        android:layout_height="fill_parent"/>
+    <ImageView android:id="@+id/image"
+        android:contentDescription="@string/app_name"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+</LinearLayout>  
