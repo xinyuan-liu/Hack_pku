@@ -33,6 +33,7 @@ public class camera extends Activity implements Callback, OnClickListener {
     private Camera mCamera;
     private boolean mPreviewRunning;
     private ImageView mImageView;
+    public String dir="/storage/sdcard1/test";
     public String picpath="/storage/sdcard1/test.jpg";
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class camera extends Activity implements Callback, OnClickListener {
         mSurfaceHolder = mSurfaceView.getHolder();
         mSurfaceHolder.addCallback(this);
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+
     }
 
     @Override
@@ -180,6 +183,25 @@ public class camera extends Activity implements Callback, OnClickListener {
     @Override
     public void onClick(View arg0) {
         Log.v("onClick", "…onClick…");
-        mCamera.autoFocus(mAutoFocusCallBack);
+
+        /*
+        for(int i=0;i<5;i++)
+        {
+            try{
+                Thread.sleep(1500);
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+            picpath=dir+ Integer.toString(i)+".jpg";
+            Log.i("taking photo",dir+Integer.toString(i)+".jpg");
+            // mCamera.autoFocus(mAutoFocusCallBack);
+            Camera.Parameters Parameters = mCamera.getParameters();
+            Parameters.setPictureFormat(PixelFormat.JPEG);// 设置图片格式
+            mCamera.setParameters(Parameters);
+            mCamera.takePicture(mShutterCallback, null, mPictureCallback);
+        }*/
+        mCamera.takePicture(mShutterCallback, null, mPictureCallback);
+        //mCamera.autoFocus(mAutoFocusCallBack);
     }
 }
