@@ -43,6 +43,13 @@ public class camera extends Activity implements Callback, OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        init();
+
+
+
+    }
+    private void init()
+    {
         setContentView(R.layout.camera);
         mSurfaceView = (SurfaceView) findViewById(R.id.camera);
         mImageView = (ImageView) findViewById(R.id.image);
@@ -51,10 +58,7 @@ public class camera extends Activity implements Callback, OnClickListener {
         mSurfaceHolder = mSurfaceView.getHolder();
         mSurfaceHolder.addCallback(this);
         mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-
     }
-
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width,
                                int height) {
@@ -113,6 +117,7 @@ public class camera extends Activity implements Callback, OnClickListener {
             if (data != null) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
                         data.length);
+                Log.i("hack", picpath);
                 File myCaptureFile = new File(picpath);
 
                 try
@@ -122,6 +127,7 @@ public class camera extends Activity implements Callback, OnClickListener {
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
                     bos.flush();
                     bos.close();
+                    bitmap.recycle();
                     //mCamera.stopPreview();
                     //mPreviewRunning = false;
                     //mCamera.release();
@@ -184,7 +190,7 @@ public class camera extends Activity implements Callback, OnClickListener {
     public void onClick(View arg0) {
         Log.v("onClick", "…onClick…");
 
-        /*
+
         for(int i=0;i<5;i++)
         {
             try{
@@ -194,14 +200,13 @@ public class camera extends Activity implements Callback, OnClickListener {
                 e.printStackTrace();
             }
             picpath=dir+ Integer.toString(i)+".jpg";
-            Log.i("taking photo",dir+Integer.toString(i)+".jpg");
+            Log.i("hack",dir+Integer.toString(i)+".jpg");
             // mCamera.autoFocus(mAutoFocusCallBack);
-            Camera.Parameters Parameters = mCamera.getParameters();
-            Parameters.setPictureFormat(PixelFormat.JPEG);// 设置图片格式
-            mCamera.setParameters(Parameters);
+            //Camera.Parameters Parameters = mCamera.getParameters();
+            //Parameters.setPictureFormat(PixelFormat.JPEG);// 设置图片格式
+            //mCamera.setParameters(Parameters);
             mCamera.takePicture(mShutterCallback, null, mPictureCallback);
-        }*/
-        mCamera.takePicture(mShutterCallback, null, mPictureCallback);
+        }
         //mCamera.autoFocus(mAutoFocusCallBack);
     }
 }
