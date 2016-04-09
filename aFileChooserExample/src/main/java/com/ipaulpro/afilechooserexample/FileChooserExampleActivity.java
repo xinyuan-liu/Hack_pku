@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,25 +40,19 @@ public class FileChooserExampleActivity extends Activity {
     public static String path;
     private static final int REQUEST_CODE = 6384; // onActivityResult request
                                                   // code
+
+    public boolean mode=false;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.choose_mode);
 
-        // Create a simple button to start the file chooser process
-        Button button = new Button(this);
-        button.setText("choose a file");
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Display the file chooser dialog
-                showChooser();
-            }
-        });
-
-        setContentView(button);
     }
 
-    private void showChooser() {
+    public void onSelectButtonClicked(View view) {
+        mode=false;
         // Use the GET_CONTENT intent from the utility class
         Intent target = FileUtils.createGetContentIntent();
         // Create the chooser Intent
@@ -68,6 +63,12 @@ public class FileChooserExampleActivity extends Activity {
         } catch (ActivityNotFoundException e) {
             // The reason for the existence of aFileChooser
         }
+    }
+
+    public void onPhotoButtonClicked(View view)
+    {
+        mode=true;
+        
     }
 
     @Override
