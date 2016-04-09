@@ -15,6 +15,7 @@
  * limitations under the License.
  -->
 <resources>
+    <string name="app_name">Empty</string>
     <string name="empty_directory">Empty Directory</string>
     <string name="storage_removed">Storage was removed or unmounted.</string>
     <string name="choose_file">Select a file</string>

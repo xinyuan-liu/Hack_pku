@@ -75,21 +75,18 @@ public class FileChooserActivity extends FragmentActivity implements
         } else {
             mPath = savedInstanceState.getString(PATH);
         }
-
         setTitle(mPath);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         unregisterStorageListener();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         registerStorageListener();
     }
 
