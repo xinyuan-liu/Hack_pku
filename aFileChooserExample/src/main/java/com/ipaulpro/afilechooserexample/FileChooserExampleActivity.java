@@ -68,7 +68,8 @@ public class FileChooserExampleActivity extends Activity {
     public void onPhotoButtonClicked(View view)
     {
         mode=true;
-        
+        Intent intent = new Intent(this, camera.class);
+        startActivity(intent);
     }
 
     @Override
