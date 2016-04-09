@@ -27,9 +27,7 @@ public class show_pic extends Activity {
         setContentView(R.layout.show);
 
         ImageView image = (ImageView)findViewById(R.id.imageView);
-        wb = (WebView) findViewById(R.id.webView);
         TextView txt = (TextView)findViewById(R.id.t123);
-
 
 
         Log.i("new", path);

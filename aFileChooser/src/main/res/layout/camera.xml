@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/btn_sum"
+        android:layout_gravity="center_vertical" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:layout_below="@id/btn_sum"
+        android:id="@+id/btn_capture"
+        android:layout_gravity="center_vertical" />
+
     <SurfaceView android:id="@+id/camera"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
     <ImageView android:id="@+id/image"
         android:contentDescription="@string/app_name"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
-</LinearLayout>  
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>
