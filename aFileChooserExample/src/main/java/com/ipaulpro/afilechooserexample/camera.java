@@ -1,5 +1,8 @@
 package com.ipaulpro.afilechooserexample;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 //import com.ziyouku.demo.R;
 import android.app.Activity;
@@ -30,7 +33,7 @@ public class camera extends Activity implements Callback, OnClickListener {
     private Camera mCamera;
     private boolean mPreviewRunning;
     private ImageView mImageView;
-
+    public String picpath="/storage/sdcard1/test.jpg";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +96,10 @@ public class camera extends Activity implements Callback, OnClickListener {
         mCamera = null;
     }
 
+
+
+
+
     /**
      * 拍照的回调接口
      */
@@ -103,16 +110,50 @@ public class camera extends Activity implements Callback, OnClickListener {
             if (data != null) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0,
                         data.length);
-                mImageView.setImageBitmap(bitmap);
-                mImageView.setVisibility(View.VISIBLE);
-                mSurfaceView.setVisibility(View.GONE);
-                if (mPreviewRunning) {
-                    mCamera.stopPreview();
-                    mPreviewRunning = false;
+                File myCaptureFile = new File(picpath);
+
+                try
+                {
+                    BufferedOutputStream bos=new BufferedOutputStream
+                    (new FileOutputStream(myCaptureFile));
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+                    bos.flush();
+                    bos.close();
+                    //mCamera.stopPreview();
+                    //mPreviewRunning = false;
+                    //mCamera.release();
+                    Log.i("finish_save", picpath);
+                    //resetCamera();
+                    Log.i("finish_photo", picpath);
+
                 }
+                catch (Exception e)
+                {
+                    Log.e("tag", e.getMessage());
+                }
+
+                //mImageView.setImageBitmap(bitmap);
+                //mImageView.setVisibility(View.VISIBLE);
+                //mSurfaceView.setVisibility(View.GONE);
+                //if (mPreviewRunning) {
+                //    mCamera.stopPreview();
+                //    mPreviewRunning = false;
+                //}
             }
         }
     };
+
+    private void resetCamera()
+    {
+        if (mCamera != null )
+        {
+            mCamera.stopPreview();
+       /* 扩展学习，释放Camera对象 */
+            mCamera.release();
+            mCamera = null;
+
+        }
+    }
     /**
      * 在相机快门关闭时候的回调接口，通过这个接口来通知用户快门关闭的事件，
      * 普通相机在快门关闭的时候都会发出响声.
