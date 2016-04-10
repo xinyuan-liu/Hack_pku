@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
+import org.json.JSONObject;
+
 /**
  * @author paulburke (ipaulpro)
  */
@@ -84,7 +86,9 @@ public class FileChooserExampleActivity extends Activity {
                             path = FileUtils.getPath(this, uri);
                             Toast.makeText(FileChooserExampleActivity.this,
                                     "File Selected!: " + path, Toast.LENGTH_LONG).show();
-                            res = test.HttpClientPost(path);
+                            JSONObject jo = new JSONObject(test.HttpClientPost(path));
+                            jo = jo.getJSONArray("faces").getJSONObject(0);
+                            res = jo.getJSONObject("attributes").getString("attractive");
                             Log.i("tag", res);
                         } catch (Exception e) {
                             Log.e("FileSelectorActivity", "File select error", e);
