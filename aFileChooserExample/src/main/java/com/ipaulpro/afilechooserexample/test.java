@@ -10,6 +10,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -47,6 +48,9 @@ public class test {
                                 new InputStreamReader(entitys.getContent()));
                             line = reader.readLine();
                             System.out.println(line);
+                            JSONObject jo = new JSONObject(line);
+                            jo = jo.getJSONArray("faces").getJSONObject(0);
+                            line = jo.getJSONObject("attributes").getString("attractive");
                             return;
                         }
                         else
@@ -60,6 +64,7 @@ public class test {
                     }catch(Exception e){e.printStackTrace();}
                 }
             }.start();
+
             try {
                 while (line.equals("")) {
                     Thread.sleep(100);

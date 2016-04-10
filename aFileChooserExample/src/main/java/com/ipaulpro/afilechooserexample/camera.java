@@ -1,6 +1,7 @@
 package com.ipaulpro.afilechooserexample;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -26,6 +27,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class camera extends Activity implements Callback, OnClickListener {
     private SurfaceView mSurfaceView;
@@ -35,7 +38,8 @@ public class camera extends Activity implements Callback, OnClickListener {
     private ImageView mImageView;
     public String dir="/storage/sdcard1/test";
     public String picpath="/storage/sdcard1/test.jpg";
-    boolean startflag=false;
+    boolean startflag = false;
+    List<String> ls = new ArrayList<String>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +138,7 @@ public class camera extends Activity implements Callback, OnClickListener {
                     //mCamera.stopPreview();
                     //mPreviewRunning = false;
                     //mCamera.release();
+                    ls.add(picpath);
                     Log.i("new", picpath);
                     //resetCamera();
                     //Log.i("new", picpath);
@@ -192,22 +197,6 @@ public class camera extends Activity implements Callback, OnClickListener {
     public void onClick(View arg0) {
         Log.v("new", "…onClick…");
         startflag=false;
-        /*
-        for(int i=0;i<5;i++)
-        {
-            try{
-                Thread.sleep(1500);
-            } catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-            Log.i("hack",dir+Integer.toString(i)+".jpg");
-            // mCamera.autoFocus(mAutoFocusCallBack);
-            //Camera.Parameters Parameters = mCamera.getParameters();
-            //Parameters.setPictureFormat(PixelFormat.JPEG);// 设置图片格式
-            //mCamera.setParameters(Parameters);
-            mCamera.takePicture(mShutterCallback, null, mPictureCallback);
-        }*/
         picpath=dir+0+".jpg";
 
         mCamera.autoFocus(mAutoFocusCallBack);
@@ -233,8 +222,20 @@ public class camera extends Activity implements Callback, OnClickListener {
                         i++;
                     }
                 }
-
+                ArrayList <c> yan = new ArrayList<c>();
+                try {
+                    for (String item : ls) {
+                        String a = test.HttpClientPost(item);
+                        int i = Integer.parseInt(a);
+                        yan.add(new c(item, i));
+                    }
+                    Intent intent = new Intent(camera.this, show_pic.class);
+                    Bundle b = new Bundle();
+                    b.putParcelableArrayList("pic", yan);
+                    startActivity(intent);
+                }catch (Exception e){e.printStackTrace();}
             }
         }.start();
+
     }
 }

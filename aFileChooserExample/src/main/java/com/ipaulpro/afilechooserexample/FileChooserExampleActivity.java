@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.ipaulpro.afilechooser.utils.FileUtils;
 
-import org.json.JSONObject;
+import java.util.ArrayList;
 
 /**
  * @author paulburke (ipaulpro)
@@ -86,16 +86,18 @@ public class FileChooserExampleActivity extends Activity {
                             path = FileUtils.getPath(this, uri);
                             Toast.makeText(FileChooserExampleActivity.this,
                                     "File Selected!: " + path, Toast.LENGTH_LONG).show();
-                            JSONObject jo = new JSONObject(test.HttpClientPost(path));
-                            jo = jo.getJSONArray("faces").getJSONObject(0);
-                            res = jo.getJSONObject("attributes").getString("attractive");
+                            res = test.HttpClientPost(path);
                             Log.i("tag", res);
                         } catch (Exception e) {
                             Log.e("FileSelectorActivity", "File select error", e);
                         }
                         Intent intent = new Intent(this, show_pic.class);
-                        intent.putExtra("path", path);
-                        intent.putExtra("yanzhi", res);
+                        c pic = new c(path, Integer.parseInt(res));
+                        ArrayList<c> p = new  ArrayList<c>();
+                        p.add(pic);
+                        p.add(pic);
+                        p.add(pic);
+                        intent.putParcelableArrayListExtra("pic", p);
                         startActivity(intent);
                     }
                 }
